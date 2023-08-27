@@ -5,25 +5,20 @@ import pandas as pd
 import sqlite3
 import time
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
-
-
-st.set_page_config(page_title=None, page_icon="🚚", layout="wide", initial_sidebar_state="auto", menu_items=None)
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 
 # Configurações do Streamlit
 st.title("Roleta Automatizada")
 st.write("Digite suas informações e escolha a estratégia:")
-
-
-
 
 email = st.text_input("Digite o seu email:")
 senha = st.text_input("Digite a sua senha:", type="password")
@@ -36,19 +31,18 @@ desligar = False
 
 
 
+
 if st.button("Iniciar", key="iniciar_button"):
     st.write("Iniciando o código...")
 
-    # Configurar as opções do Chrome para executar em modo headless ou visível
-    chrome_options = Options()
+
+    firefox_options = FirefoxOptions()
     if navegador_headless:
-        chrome_options.add_argument("--headless")
-    navegador = webdriver.Chrome(options=chrome_options)
-
-
+        firefox_options.add_argument("--headless")
+    navegador = webdriver.Firefox(options=firefox_options)
+    
     def imprimir_log(mensagem):
         print("[LOG]", mensagem)
-
 
 
 
@@ -66,7 +60,10 @@ if st.button("Iniciar", key="iniciar_button"):
         navegador.get(base_url)
 
         # Encontrar e clicar no botão de entrar
-        botao_entrar = aguardar_elemento_presente((By.XPATH, '//*[@id="header"]/div/div[2]/div/div/div[1]/a'))
+        botao_entrar = aguardar_elemento_presente((By.XPATH, '/html/body/div[1]/main/div[1]/div[2]/div/div[2]/div/div[2]/div/div/div[1]/a'))
+        
+        
+        
         imprimir_log("Clicando no botão entrar ")
         botao_entrar.click()
 
@@ -158,24 +155,6 @@ if st.button("Iniciar", key="iniciar_button"):
     perdeu_consecutivas = 0
     max_ganhou_consecutivas = 0
     ganhou_consecutivas = 0
-
-
-
-
-    # Aqui estão as colunas com os espaços vazios reservadoas parao dataframe.
-    col1, col2, col3, col4 = st.columns(4)
-
-    with col1:
-        empty_slot1 = st.empty()
-
-    with col2:
-        empty_slot2 = st.empty()
-
-    with col3:
-        empty_slot3 = st.empty()
-
-    with col4:
-        empty_slot4 = st.empty()
 
 
 
@@ -409,15 +388,6 @@ if st.button("Iniciar", key="iniciar_button"):
                 # Concatenar o dataframe com o dataframe anterior
                 df_concatenado = pd.concat([df_concatenado, df])
                 result_df_placeholder.dataframe(df_concatenado.tail(10)) 
-
-
-
-                empty_slot1.metric("Dica:", dica)
-                empty_slot2.metric("valor_aposta:", valor_aposta)
-                empty_slot3.metric("Cor sorteada", color0)
-                empty_slot4.metric("Numero sorteado", numero0)
-  
-
 
 
                 time.sleep(28)
