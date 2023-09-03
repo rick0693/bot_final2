@@ -3,3 +3,6 @@ pandas
 numpy
 matplotlib
 plotly
+streamlit
+seleniumbase
+webdriver-manager
