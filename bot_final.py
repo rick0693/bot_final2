@@ -9,7 +9,16 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-
+import streamlit as st
+import pandas as pd
+import numpy as np
+import base64
+import warnings
+warnings.filterwarnings('ignore')
+from datetime import datetime, date
+from io import BytesIO
+import matplotlib.pyplot as plt
+import plotly.graph_objects as go
 # Configurações do Streamlit
 st.title("Roleta Automatizada")
 st.write("Digite suas informações e escolha a estratégia:")
