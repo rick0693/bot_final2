@@ -426,25 +426,7 @@ if st.button("Iniciar", key="iniciar_button"):
 
 
 
-                if ganhou_counter >= numero_vitorias_desejado:
-                    if opcao_alerta_vitoria == "Alertar e Desligar":
-                        st.warning(f"Alerta sonoro ativado! Número desejado de vitórias alcançado. Desligando o código.")
-                        pygame.mixer.init()
-                        pygame.mixer.music.load("fim.mp3")  # Substitua pelo caminho do seu arquivo de som
-                        pygame.mixer.music.play()
-                        desligar = True
-                        navegador.quit()
-
-                if max_perdeu_consecutivas >= numero_alerta_derrotas:
-                    pygame.mixer.init()
-                    pygame.mixer.music.load("alerta.mp3")  # Substitua pelo caminho do seu arquivo de som
-                    pygame.mixer.music.play()
-
-                    if opcao_alerta_derrota == "Alertar e Desligar":
-                        st.warning(f"Alerta sonoro ativado! Número desejado de derrotas consecutivas alcançado. Desligando o código.")
-                        desligar = True
-                        navegador.quit()                
-                    
+     
                         
                 
                 time.sleep(28)
